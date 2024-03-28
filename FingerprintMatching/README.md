@@ -1,0 +1,1 @@
+Before running, make sure to downlaod the SOCOFing Dataset from https://www.kaggle.com/datasets/ruizgara/socofing and put the SOCOFing Folder into the datasets project folder
