@@ -20,11 +20,17 @@ This GitHub project is a curated collection of Python projects leveraging OpenCV
 
 -  [x]  **Car Counter**: Count cars that are passing by in a video feed
 
+-  [x]  **Feature Detection**: Identify game covers in a video stream using feature extraction
+
 -  [x]  **Fingerprint Matching**: Biometric technique using computer vision to compare fingerprints for authentication purposes
 
 -  [x]  **Face Detection**: Identify human faces in images and video feeds
 
 -  [x]  **Face Recognition**: Biometric technique using computer vision to identify or verify a person by analyzing patterns based on the person's facial features
+
+-  [x]  **Review Sentiment Analysis**: Analyze sentiment in amazon reviews using VADER / Roberta / Huggingface Pipeline
+
+-  [x]  **Spam Detection**: Detect spam texts using machine learning with the Naive Bayes algorithm
 
 
 ## Getting Started
