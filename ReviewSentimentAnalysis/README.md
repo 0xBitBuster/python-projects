@@ -1,0 +1,1 @@
+Download the review dataset as CSV from https://www.kaggle.com/datasets/snap/amazon-fine-food-reviews
