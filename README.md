@@ -30,6 +30,8 @@ This GitHub project is a curated collection of Python projects leveraging OpenCV
 
 -  [x]  **Review Sentiment Analysis**: Analyze sentiment in amazon reviews using VADER / Roberta / Huggingface Pipeline
 
+-  [x]  **Stock News Sentiment Analysis**: Crawl and analyze sentiment in stock news headlines from finviz 
+
 -  [x]  **Spam Detection**: Detect spam texts using machine learning with the Naive Bayes algorithm
 
 
