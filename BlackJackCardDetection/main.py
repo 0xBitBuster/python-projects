@@ -1,21 +1,6 @@
-from ultralytics import YOLO
 import cv2 as cv
-
-
-def merge_bboxes(existing_bbox, new_bbox):
-    top = min(new_bbox['y'] - new_bbox['height'] / 2, existing_bbox['y'] - existing_bbox['height'] / 2)
-    bottom = max(new_bbox['y'] + new_bbox['height'] / 2, existing_bbox['y'] + existing_bbox['height'] / 2)
-    left = min(new_bbox['x'] - new_bbox['width'] / 2, existing_bbox['x'] - existing_bbox['width'] / 2)
-    right = max(new_bbox['x'] + new_bbox['width'] / 2, existing_bbox['x'] + existing_bbox['width'] / 2)
-
-    merged_bbox = {
-        'x': (left + right) / 2,
-        'y': (top + bottom) / 2,
-        'width': right - left,
-        'height': bottom - top
-    }
-
-    return merged_bbox
+from ultralytics import YOLO
+from utils import *
 
 
 def process_detections(frame, model):
@@ -54,7 +39,7 @@ def process_detections(frame, model):
     return predictions_parsed
 
 
-def draw_bboxes(frame, predictions_parsed):
+def draw_bboxes_and_count(frame, predictions_parsed):
     detected_cards = []
     for cls_name, bbox_info in predictions_parsed.items():
         bbox = bbox_info['bbox']
@@ -65,10 +50,16 @@ def draw_bboxes(frame, predictions_parsed):
         cv.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
         detected_cards.append(cls_name)
 
-    print(f"Detected cards: {', '.join(detected_cards)}")
+    # Calculate the best possible count for the detected cards
+    count = calculate_best_count(detected_cards)
+
+    # Draw the count on the frame
+    count_text = f"Count: {count}"
+    cv.rectangle(frame, (10, 10), (200, 50), (0, 0, 0), -1)
+    cv.putText(frame, count_text, (10, 30), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 1)
 
 
-# Load a model
+# Load the model
 model = YOLO("yolov8s_playing_cards.pt")
 cap = cv.VideoCapture(0)
 frame_counter = 0
@@ -79,7 +70,7 @@ while cap.isOpened():
     # Only perform detection on every 5th frame
     if frame_counter % 5 == 0:
         predictions_parsed = process_detections(frame, model)
-        draw_bboxes(frame, predictions_parsed)
+        draw_bboxes_and_count(frame, predictions_parsed)
         cv.imshow("Detections", frame)
 
     # Break the loop if 'q' is pressed
