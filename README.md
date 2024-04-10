@@ -32,6 +32,8 @@ This GitHub project is a curated collection of Python projects leveraging OpenCV
 
 -  [x]  **Stock News Sentiment Analysis**: Crawl and analyze sentiment in stock news headlines from finviz 
 
+-  [x]  **Stock Price Prediction**: Download stock data and predicts stock price using machine learning with the LTSM model.
+
 -  [x]  **Spam Detection**: Detect spam texts using machine learning with the Naive Bayes algorithm
 
 
