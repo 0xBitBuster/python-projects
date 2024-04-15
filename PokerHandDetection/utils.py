@@ -89,7 +89,6 @@ def find_poker_hand(hand):
         possible_ranks.append(1)
 
     output = poker_hand_ranks[max(possible_ranks)]
-    print(output)
     return output
 
 
