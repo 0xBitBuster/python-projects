@@ -32,43 +32,34 @@ def find_poker_hand(hand):
     # Identify available hand types based on number of cards
     possible_ranks = []
     if len(hand) >= 5:  # Full hand
-        if suits.count(suits[0]) == 5:  # Check for Flush
-            possible_ranks.append(6)  # Flush
-
-            # Check for Straight within Flush
-            if all(sorted_ranks[i] == sorted_ranks[i - 1] + 1 for i in range(1, len(sorted_ranks))):
-                possible_ranks.append(9)  # Straight Flush
-
-            # Check for Royal Flush (within Straight Flush check)
-            if 14 in sorted_ranks and 13 in sorted_ranks and 12 in sorted_ranks and 11 in sorted_ranks and 10 in sorted_ranks:
-                possible_ranks.append(10)  # -- Royal Flush
-
+        if suits.count(suits[0]) == 5: # Check for Flush
+          possible_ranks.append(6) # Flush
+    
+          # Check for Straight within Flush
+          if all(sorted_ranks[i] == sorted_ranks[i - 1] + 1 for i in range(1, len(sorted_ranks))):
+            possible_ranks.append(9) # Straight Flush
+    
+          # Check for Royal Flush (within Straight Flush check)
+          if 14 in sorted_ranks and 13 in sorted_ranks and 12 in sorted_ranks and 11 in sorted_ranks and 10 in sorted_ranks:
+            possible_ranks.append(10) # -- Royal Flush
+    
         # Straight (independent of Flush)
         if all(sorted_ranks[i] == sorted_ranks[i - 1] + 1 for i in range(1, len(sorted_ranks))):
-            possible_ranks.append(5)
+          possible_ranks.append(5)
 
     if len(hand) >= 3:  # Check for Full House, Two Pair, Three of a Kind, or High Card
         hand_unique_values = list(set(sorted_ranks))
 
-        # Check for Full House (before Two Pair and Three of a Kind)
-        # Two cases: Three of a kind + pair, or pair + three of a kind
-        if len(hand_unique_values) == 2:
-            count_0 = sorted_ranks.count(hand_unique_values[0])
-            count_1 = sorted_ranks.count(hand_unique_values[1])
-            if count_0 == 3 or count_1 == 3:
-                possible_ranks.append(7)  # Full House
-
-        # Check for Two Pair (after Full House)
-        if len(hand_unique_values) == 3:  # Two Pair can have 3 unique values
-            possible_ranks.append(3)
-
-        # Check for Three of a Kind (after Full House)
+        # Check for Three of a Kind (before Two Pair)
         for val in hand_unique_values:
             if sorted_ranks.count(val) == 3:  # Three of a Kind
                 possible_ranks.append(4)
                 break  # Exit loop after finding Three of a Kind (optional)
 
-        possible_ranks.append(1)  # High Card (as a fallback)
+        # **No check for Two Pair here (removed)**
+
+        # High Card (as a fallback)
+        possible_ranks.append(1)
 
     if len(hand) >= 2:  # Check for Four of a Kind, Pair, or High Card
         # Check for Pair directly (more reliable)
@@ -90,7 +81,7 @@ def find_poker_hand(hand):
 
     output = poker_hand_ranks[max(possible_ranks)]
     return output
-
+    
 
 def draw_text_with_background(frame, text, position, font=cv.FONT_HERSHEY_SIMPLEX, font_scale=1, font_thickness=1, text_color=(255, 255, 255), background_color=(0, 0, 0)):
     text_size, _ = cv.getTextSize(text, font, font_scale, font_thickness)
