@@ -17,13 +17,17 @@ for file in [file for file in os.listdir('datasets/SOCOFing/Real')][:1000]:
 
     matches = cv.FlannBasedMatcher({'algorithm': 1, 'trees': 10}, {}).knnMatch(descriptors_1, descriptors_2, k=2)
     match_points = [p for p, q in matches if p.distance < 0.1 * q.distance]
-    keypoints = min([keypoint1, keypoint2], key=len)
+    key_points = min([key_points_1, key_points_2], key=len)
 
-    if (len(match_points) / key_points * 100) > best_score:
-        best_score = (len(match_points) / key_points * 100)
+    if (len(match_points) / len(key_points) * 100) > best_score:
+        best_score = (len(match_points) / len(key_points) * 100)
         filename = file
         image = fingerprint_image
         kp1, kp2, mp = key_points_1, key_points_2, match_points
+
+if filename is None:
+    print("NO MATCH WAS FOUND!")
+    exit(0)
 
 print("BEST MATCH: " + filename)
 print("SCORE: " + str(best_score))
